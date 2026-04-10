@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>W E L C O M E — I T Z F I Z Z</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ink: #0a0a0a;
+    --cream: #f5f0e8;
+    --accent: #ff4d1c;
+    --mid: #1a1a1a;
+    --muted: #6b6a65;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--cream);
+    color: var(--ink);
+    font-family: 'DM Sans', sans-serif;
+    overflow-x: hidden;
+  }
+
+  /* ─── NAV ─────────────────────────────────────────── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.4rem 3rem;
+    mix-blend-mode: multiply;
+  }
+  .nav-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.6rem; letter-spacing: 0.15em;
+    color: var(--ink);
+  }
+  .nav-links { display: flex; gap: 2rem; }
+  .nav-links a {
+    font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--muted); text-decoration: none; transition: color .2s;
+  }
+  .nav-links a:hover { color: var(--ink); }
+
+  /* ─── HERO ─────────────────────────────────────────── */
+  #hero {
+    position: relative;
+    height: 100vh; min-height: 640px;
+    display: flex; flex-direction: column;
+    justify-content: flex-end;
+    padding: 0 3rem 4rem;
+    overflow: hidden;
+  }
+
+  /* Decorative grid lines */
+  #hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(0,0,0,.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,0,0,.05) 1px, transparent 1px);
+    background-size: 80px 80px;
+    pointer-events: none;
+  }
+
+  /* ─── BIG FLOATING VISUAL ──────────────────────────── */
+  .hero-orb-wrap {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: min(70vw, 520px);
+    aspect-ratio: 1;
+    will-change: transform;
+    pointer-events: none;
+  }
+
+  .hero-orb {
+    width: 100%; height: 100%;
+    border-radius: 50%;
+    background: conic-gradient(
+      from 0deg,
+      #ff4d1c 0%,
+      #ff9500 18%,
+      #ffe600 36%,
+      #0aff82 54%,
+      #00b4ff 72%,
+      #a855f7 88%,
+      #ff4d1c 100%
+    );
+    filter: blur(2px);
+    animation: spin 18s linear infinite;
+    will-change: transform;
+  }
+
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* inner mask — punches a cream hole to give 'ring' effect */
+  .hero-orb-inner {
+    position: absolute;
+    top: 12%; left: 12%;
+    width: 76%; height: 76%;
+    border-radius: 50%;
+    background: var(--cream);
+  }
+
+  /* floating label on orb */
+  .orb-label {
+    position: absolute;
+    bottom: 8%; right: 8%;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(1.2rem, 3vw, 2rem);
+    letter-spacing: 0.1em;
+    color: var(--ink);
+    opacity: 0;
+    transform: translateY(12px);
+  }
+
+  /* corner year stamp */
+  .hero-year {
+    position: absolute;
+    top: 2rem; right: 3rem;
+    font-size: 0.7rem; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--muted);
+    writing-mode: vertical-rl;
+  }
+
+  /* ─── HEADLINE ──────────────────────────────────────── */
+  .hero-headline {
+    position: relative; z-index: 2;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(3rem, 9vw, 9rem);
+    line-height: 0.9;
+    letter-spacing: 0.25em;
+    overflow: hidden;
+  }
+
+  .headline-line {
+    display: block; overflow: hidden;
+  }
+
+  .headline-word {
+    display: inline-block;
+    transform: translateY(110%);
+    will-change: transform;
+  }
+
+  /* accent word */
+  .accent { color: var(--accent); }
+
+  /* ─── STATS ROW ─────────────────────────────────────── */
+  .hero-stats {
+    position: relative; z-index: 2;
+    display: flex; gap: 3rem;
+    margin-top: 2.4rem;
+  }
+
+  .stat {
+    opacity: 0; transform: translateY(20px);
+    will-change: opacity, transform;
+  }
+
+  .stat-number {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2rem, 4vw, 3.4rem);
+    line-height: 1;
+    letter-spacing: 0.05em;
+  }
+
+  .stat-desc {
+    font-size: 0.72rem; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--muted);
+    margin-top: 0.3rem;
+    max-width: 11ch;
+    line-height: 1.5;
+  }
+
+  /* divider between stats */
+  .stat + .stat { border-left: 1px solid rgba(0,0,0,.15); padding-left: 3rem; }
+
+  /* ─── SCROLL INDICATOR ──────────────────────────────── */
+  .scroll-cue {
+    position: absolute; bottom: 2rem; right: 3rem;
+    display: flex; align-items: center; gap: .6rem;
+    font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--muted);
+    opacity: 0;
+  }
+  .scroll-cue .arrow {
+    width: 28px; height: 1px; background: var(--muted); position: relative;
+  }
+  .scroll-cue .arrow::after {
+    content: '';
+    position: absolute; right: 0; top: -3px;
+    width: 6px; height: 6px;
+    border-right: 1px solid var(--muted); border-bottom: 1px solid var(--muted);
+    transform: rotate(-45deg);
+  }
+
+  /* ─── BELOW-FOLD CONTENT ────────────────────────────── */
+  .below-fold {
+    height: 200vh;
+    background: linear-gradient(180deg, var(--cream) 0%, #e8e2d6 100%);
+    display: flex; align-items: center; justify-content: center;
+    position: relative;
+  }
+
+  .below-fold-text {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2rem, 6vw, 5rem);
+    letter-spacing: 0.2em; text-align: center; color: var(--ink);
+    opacity: .12;
+  }
+
+  /* ─── RESPONSIVE ────────────────────────────────────── */
+  @media (max-width: 640px) {
+    nav { padding: 1rem 1.5rem; }
+    #hero { padding: 0 1.5rem 3rem; }
+    .hero-stats { gap: 1.5rem; flex-wrap: wrap; }
+    .stat + .stat { border-left: none; padding-left: 0;
+      border-top: 1px solid rgba(0,0,0,.15); padding-top: 1rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <span class="nav-logo">Itzfizz</span>
+  <div class="nav-links">
+    <a href="#">Work</a>
+    <a href="#">Services</a>
+    <a href="#">About</a>
+    <a href="#">Contact</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+
+  <!-- Floating orb / main visual -->
+  <div class="hero-orb-wrap" id="orb">
+    <div class="hero-orb"></div>
+    <div class="hero-orb-inner"></div>
+    <span class="orb-label" id="orbLabel">Digital</span>
+  </div>
+
+  <span class="hero-year">Est. 2020</span>
+
+  <!-- Headline -->
+  <h1 class="hero-headline">
+    <span class="headline-line">
+      <span class="headline-word">W&thinsp;E&thinsp;L&thinsp;C&thinsp;O&thinsp;M&thinsp;E</span>
+    </span>
+    <span class="headline-line">
+      <span class="headline-word accent">I&thinsp;T&thinsp;Z&thinsp;F&thinsp;I&thinsp;Z&thinsp;Z</span>
+    </span>
+  </h1>
+
+  <!-- Stats -->
+  <div class="hero-stats">
+    <div class="stat" id="s1">
+      <div class="stat-number">98%</div>
+      <div class="stat-desc">Client satisfaction rate</div>
+    </div>
+    <div class="stat" id="s2">
+      <div class="stat-number">120+</div>
+      <div class="stat-desc">Projects delivered</div>
+    </div>
+    <div class="stat" id="s3">
+      <div class="stat-number">4×</div>
+      <div class="stat-desc">Average ROI for clients</div>
+    </div>
+  </div>
+
+  <!-- Scroll cue -->
+  <div class="scroll-cue" id="scrollCue">
+    Scroll <span class="arrow"></span>
+  </div>
+
+</section>
+
+<!-- BELOW FOLD -->
+<div class="below-fold">
+  <p class="below-fold-text">Crafting Digital Experiences</p>
+</div>
+
+<script>
+gsap.registerPlugin(ScrollTrigger);
+
+const orb = document.getElementById('orb');
+const orbLabel = document.getElementById('orbLabel');
+const words = document.querySelectorAll('.headline-word');
+const stats = document.querySelectorAll('.stat');
+const scrollCue = document.getElementById('scrollCue');
+
+// ── 1. INITIAL LOAD TIMELINE ────────────────────────────
+const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+
+// Orb fades in
+tl.fromTo(orb, { opacity: 0, scale: 0.72 }, { opacity: 1, scale: 1, duration: 1.4 }, 0);
+
+// Headline words slide up
+tl.to(words, {
+  translateY: '0%',
+  duration: 1.0,
+  stagger: 0.18,
+  ease: 'expo.out',
+}, 0.3);
+
+// Orb label
+tl.to(orbLabel, { opacity: 1, translateY: 0, duration: 0.7 }, 0.9);
+
+// Stats stagger in
+tl.to(stats, {
+  opacity: 1, translateY: 0,
+  duration: 0.7,
+  stagger: 0.14,
+  ease: 'power2.out',
+}, 0.8);
+
+// Scroll cue
+tl.to(scrollCue, { opacity: 1, duration: 0.6 }, 1.4);
+
+// ── 2. SCROLL-DRIVEN ORB MOTION ─────────────────────────
+// Lerp state
+let currentX = 0, currentY = 0, currentScale = 1;
+let targetX = 0, targetY = 0, targetScale = 1;
+let scrollProgress = 0;
+
+ScrollTrigger.create({
+  trigger: '#hero',
+  start: 'top top',
+  end: 'bottom top',
+  scrub: false,
+  onUpdate: self => { scrollProgress = self.progress; }
+});
+
+// Smooth interpolation via RAF
+function lerp(a, b, t) { return a + (b - a) * t; }
+
+const heroSection = document.getElementById('hero');
+
+function animateOrb() {
+  const p = scrollProgress;
+
+  // Target: orb moves up-right and shrinks as user scrolls
+  targetX = p * 260;
+  targetY = p * -180;
+  targetScale = 1 - p * 0.38;
+
+  const ease = 0.075; // interpolation factor (lower = smoother lag)
+  currentX = lerp(currentX, targetX, ease);
+  currentY = lerp(currentY, targetY, ease);
+  currentScale = lerp(currentScale, targetScale, ease);
+
+  orb.style.transform = `translate(calc(-50% + ${currentX}px), calc(-50% + ${currentY}px)) scale(${currentScale})`;
+
+  // Headline parallax — move slightly opposite
+  heroSection.querySelectorAll('.hero-headline, .hero-stats').forEach((el, i) => {
+    el.style.transform = `translateY(${p * (i === 0 ? -60 : -30)}px)`;
+  });
+
+  requestAnimationFrame(animateOrb);
+}
+
+requestAnimationFrame(animateOrb);
+
+// ── 3. SCROLL-TRIGGERED PARALLAX ON STATS ───────────────
+gsap.to('.hero-headline', {
+  scrollTrigger: {
+    trigger: '#hero',
+    start: 'top top',
+    end: 'bottom top',
+    scrub: 1.5,
+  },
+  opacity: 0,
+  ease: 'none',
+});
+
+gsap.to('.hero-stats', {
+  scrollTrigger: {
+    trigger: '#hero',
+    start: 'top top',
+    end: '60% top',
+    scrub: 1,
+  },
+  opacity: 0,
+  ease: 'none',
+});
+
+// ── 4. MOUSE PARALLAX ON ORB ─────────────────────────────
+let mouseX = 0, mouseY = 0;
+document.addEventListener('mousemove', e => {
+  mouseX = (e.clientX / window.innerWidth - 0.5) * 2;
+  mouseY = (e.clientY / window.innerHeight - 0.5) * 2;
+});
+</script>
+</body>
+</html>
